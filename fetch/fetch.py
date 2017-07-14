@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 # url:http://fund.eastmoney.com/allfund.html#0
 # A small script to analyze all the funds data
-# Author :xin xin  from "微信公众号：菜鸟学python"
+# Author:
 from bs4 import BeautifulSoup
 from threading import Thread
 from multiprocessing import Queue
@@ -109,11 +109,11 @@ class Handle_Url(Thread):
 
         from pymongo import MongoClient
         conn = MongoClient('mongodb://127.0.0.1:27017', 28017)#MongoClient()
-        db = conn.fund  #连接fund数据库，没有则自动创建
+        db = conn.fund
         date = time.strftime('%Y-%m-%d',time.localtime(time.time()))
         print(date)
-        #fund_set = db.fund_set    #使用fund_set集合，没有则自动创建
-        fund_set = db[date] #使用'YYYY-MM-DD'集合，没有则自动创建
+        #fund_set = db.fund_set
+        fund_set = db[date]
 
         while True:
             if self.queue.empty():
@@ -130,7 +130,7 @@ class Handle_Url(Thread):
 
                 lock.acquire()
                 try:
-                    self.write_each_row_in_csv(fund_data)
+                    #self.write_each_row_in_csv(fund_data)
                     self.write_each_row_in_mongo(fund_data, fund_set)
                 finally:
                     lock.release()
@@ -215,7 +215,7 @@ if __name__=='__main__':
     queue=Queue()
     threads=[]
 
-    Handle_Url.write_csv_head()
+    #Handle_Url.write_csv_head()
 
     #put all the fund_text info queue
     for fund_text in funds:
