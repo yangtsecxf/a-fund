@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from threading import Thread
 from multiprocessing import Queue
 import re,requests,csv,os,threading,time
-import pandas as pd
+#import pandas as pd
 #import sys
 #import importlib
 #importlib.reload(sys)
@@ -51,7 +51,7 @@ class Url_Download():
         get all the fund_id 
         '''
         title_node=soup.title
-        print(title_node.getText())
+        #print(title_node.getText().encode("utf-8"))
 
         uls=soup.find_all('ul',class_='num_right')
         for ul in uls:
@@ -65,7 +65,7 @@ class Url_Download():
                     fund=li_list[0].text
                     fund_id=re.findall(r'\d+',fund)[0]
                     fund_url=li_list[0].attrs['href']
-                    fund_name=fund[fund.find('）') + 1:]#fund.decode('utf-8')[fund.find(ur'）') + 1:].encode('utf8')
+                    fund_name=fund[fund.find('）') + 1:].encode("utf-8")#fund.decode('utf-8')[fund.find(ur'）') + 1:].encode('utf8')
                     fund_info_dict['fund_id']=fund_id
                     fund_info_dict['fund_name']=fund_name
                     fund_info_dict['fund_url']=fund_url
@@ -181,7 +181,7 @@ class Handle_Url(Thread):
             #get the last div
             data_itmes=data_of_fund[-1].find_all('dd',class_=None)
             if not data_itmes:
-                print('!!{} No data find'.format(soup.title))
+                print('!!{} No data find'.format(soup.title.encode("utf-8")))
             for each in data_itmes:
                 spans=each.find_all('span')
                 date=spans[0].text

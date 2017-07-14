@@ -14,7 +14,7 @@
 
   var config = require('config');
 
-  varapp = express();
+  var app = express();
 
   app.set("port", process.env.PORT || 80);
 
@@ -72,6 +72,8 @@
     switch (msg.content) {
       case "jj":
         routes.getfund(msg, function(chosen_fund){
+          console.log(chosen_fund);
+          resMsg.msgType = "text";
           resMsg.content = chosen_fund;
           return weixin.sendMsg(resMsg);
         });

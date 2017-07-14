@@ -25,7 +25,6 @@ var MongoClient = require('mongodb').MongoClient, assert = require('assert');
             var index_last = rows.length > 0 ? rows.length - 1 : 0;      
             console.log(index_last);
             var chosen_fund = rows[index_last].mix4;
-            console.log(resMsg);
 
             fcb(chosen_fund);
         });
@@ -36,6 +35,14 @@ var MongoClient = require('mongodb').MongoClient, assert = require('assert');
   
 }).call(this);
 
-/*
-//@ sourceMappingURL=index.map
-*/
+var findDocuments = function(db, fcb) {
+  // Get the documents collection 
+  var chosen_fund_set = db.collection('chosen_fund_set');
+  // Find some documents 
+  chosen_fund_set.find({}).toArray(function(err, rows) {
+    assert.equal(err, null);
+    //assert.equal(2, docs.length);
+    console.log("findDocuments:get rows sucessfully");
+    fcb(rows);
+  });
+}
