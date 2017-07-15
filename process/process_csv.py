@@ -134,7 +134,7 @@ print("output the complete info of mix_5c---------------------------------------
 #print(df_no_NA['fund_id'].isin(list(mix_5c)))
 #print(df_no_NA.at(list(mix_5c)[0], 'fund_id'))
 
-print("save mix to mongodb------------------------------------------")
+print("store mix to mongodb------------------------------------------")
 import time
 from pymongo import MongoClient
 conn = MongoClient('mongodb://127.0.0.1:27017', 28017)#MongoClient()

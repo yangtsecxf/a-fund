@@ -1,11 +1,10 @@
 import pymongo, time
 import pandas as pd
 conn = pymongo.MongoClient('mongodb://127.0.0.1:27017', 28017)#MongoClient()
-db = conn.fund  #连接fund数据库，没有则自动创建
+db = conn.fund  #connect db fund, creat one if have none
 date = time.strftime('%Y-%m-%d',time.localtime(time.time()))
 print(date)
-#chosen_fund_set = db.chosen_fund_set    #使用fund_set集合，没有则自动创建
-fund_set = db[date] #使用'YYYY-MM-DD'集合，没有则自动创建
+fund_set = db[date] #use 'YYYY-MM-DD' connection, creat on if hvae none
 #print(list(fund_set.find()))
 #load data to pandas
 df = pd.DataFrame(list(fund_set.find()))
@@ -34,7 +33,7 @@ def clean_num_in_column(column):
 
 def drop_percent_sign(state):
 	if state.endswith('%'):
-		return float(state.replace('%',''))#一定要变成浮点数字
+		return float(state.replace('%','')) #must be float num, for pandas to process
 
 df_drop_percent=df_no_name.apply(clean_num_in_column)
 print(df_drop_percent.head())
@@ -56,7 +55,6 @@ print("sort the top 100 funds by 'three_year'-----------------------------------
 print(df_drop_percent.sort_values(by=['three_year'],ascending=False).head(range))
 y3_index=df_drop_percent.sort_values(by=['three_year'],ascending=False).head(range).index
 
-#获得 按照基金成立一年以来涨幅 大小排序
 #sort the funds by 'one_year'
 print("sort the top 100 funds by 'one_year'-----------------------------------------")
 y1_index=df_drop_percent.sort_values(by=['one_year'],ascending=False).head(range).index
@@ -137,15 +135,14 @@ print("output the complete info of mix_5c---------------------------------------
 #print(df_no_NA['fund_id'].isin(list(mix_5c)))
 #print(df_no_NA.at(list(mix_5c)[0], 'fund_id'))
 
-print("save mix to mongodb------------------------------------------")
+print("store mix to mongodb------------------------------------------")
 import time
 from pymongo import MongoClient
 conn = MongoClient('mongodb://127.0.0.1:27017', 28017)#MongoClient()
-db = conn.fund  #连接fund数据库，没有则自动创建
+db = conn.fund
 date = time.strftime('%Y-%m-%d',time.localtime(time.time()))
 print(date)
-chosen_fund_set = db.chosen_fund_set    #使用fund_set集合，没有则自动创建
-#fund_set = db[date] #使用'YYYY-MM-DD HH:MM'集合，没有则自动创建
+chosen_fund_set = db.chosen_fund_set #get the chosen set
 
 row = {"date":date, 
         "mix6":str(mix_6c),
