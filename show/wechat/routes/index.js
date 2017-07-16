@@ -24,7 +24,7 @@ var MongoClient = require('mongodb').MongoClient, assert = require('assert');
               
             var index_last = rows.length > 0 ? rows.length - 1 : 0;      
             console.log(index_last);
-            var chosen_fund = rows[index_last].mix4;
+            var chosen_fund = rows[index_last].date + ":" + rows[index_last].mix4;
 
             fcb(chosen_fund);
         });
