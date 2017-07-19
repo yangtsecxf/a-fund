@@ -48,11 +48,13 @@ def wechat():
     # POST request
     msg = parse_message(request.data)
     if msg.type == 'text':
-        if msg.content == 'jj':
-            chose_fund = funddb.get_chosen_fund()
-            reply = create_reply(chose_fund, msg)
-        else:
-            reply = create_reply(msg.content, msg)        
+        chose_fund = funddb.get_chosen_fund(msg.content)
+        reply = create_reply(chose_fund, msg)
+        #if msg.content == 'jj':
+        #    chose_fund = funddb.get_chosen_fund()
+        #    reply = create_reply(chose_fund, msg)
+        #else:
+        #    reply = create_reply(msg.content, msg)        
     else:
         reply = create_reply('Sorry, can not handle this for now', msg)
     return reply.render()

@@ -35,6 +35,3 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
-
-# there is token in default.json 
-config/default.json

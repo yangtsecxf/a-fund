@@ -99,3 +99,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# there is token in default.json 
+default.json
