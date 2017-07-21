@@ -48,7 +48,7 @@
   
   weixin.token = config.get('wx.token');
 
-  app.get("/", function(req, res) {
+  app.get("/wechat", function(req, res) {
     if (weixin.checkSignature(req)) {
       return res.send(200, req.query.echostr);
     } else {
@@ -106,7 +106,7 @@
         articles[0] = {
           title: "I Love You And Thank You!",
           description: "小静，情人节快乐!",
-          picUrl: "http://209.141.58.160:80/images/0.jpg",
+          picUrl: "http://" + config.get('server.ip') + ":" + config.get('server.port') + "/images/0.jpg",
           url: "http://mp.weixin.qq.com/s?__biz=MzA3ODMwMDExMA==&mid=403057711&idx=1&sn=8cd5d90cded186e16c3acf5de87acd7e&scene=1&srcid=0204JSDHbCwsiYCN82TgGkYy#wechat_redirect"
         };
         resMsg.msgType = "news";
