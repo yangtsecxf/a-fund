@@ -6,5 +6,5 @@ logger = logging.getLogger('all')
 logger.info("autorun successful")
 
 import os
-os.system("/usr/local/bin/python3 /a-fund/fetch/fetch.py")
-os.system("/usr/local/bin/python3 /a-fund/process/process_db.py")
+os.system("/usr/local/bin/python3 /a-fund/fetch/1.py")
+os.system("/usr/local/bin/python3 /a-fund/process/2.py")

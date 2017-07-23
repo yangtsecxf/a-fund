@@ -3,6 +3,10 @@
 # url:http://fund.eastmoney.com/allfund.html#0
 # A small script to analyze all the funds data
 # Author:
+import logging 
+logger = logging.getLogger('all.fetch')
+logger.info("fetch start")
+
 from bs4 import BeautifulSoup
 from threading import Thread
 from multiprocessing import Queue
@@ -231,3 +235,6 @@ if __name__=='__main__':
         t.join()
 
     print('Cost:{0} seconds'.format(time.time()-start))
+
+
+logger.info("fetch end")

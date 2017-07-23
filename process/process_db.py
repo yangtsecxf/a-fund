@@ -1,3 +1,7 @@
+import logging 
+logger = logging.getLogger('all.process_db')
+logger.info("process_db start")
+
 import pymongo, time
 import pandas as pd
 conn = pymongo.MongoClient('mongodb://127.0.0.1:27017', 28017)#MongoClient()
@@ -152,3 +156,6 @@ row = {"date":date,
         "mix2":str(mix_2c),
         "mix1":str(mix_1c)}
 chosen_fund_set.insert_one(row) 
+
+
+logger.info("process_db ed")
