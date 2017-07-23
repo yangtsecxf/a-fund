@@ -3,8 +3,10 @@
 # url:http://fund.eastmoney.com/allfund.html#0
 # A small script to analyze all the funds data
 # Author:
-import logging 
-logger = logging.getLogger('all.fetch')
+import logging
+import logging.config
+logging.config.fileConfig('/a-fund/config/log.conf')
+logger = logging.getLogger('fetch')
 logger.info("fetch start")
 
 from bs4 import BeautifulSoup

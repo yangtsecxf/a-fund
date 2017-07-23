@@ -1,6 +1,7 @@
-import logging 
-logger = logging.getLogger('all.process_db')
+import logging
+import logging.config
+logging.config.fileConfig('/a-fund/config/log.conf')
+logger = logging.getLogger('process_db')
 logger.info("process_db start")
-logger.info("process_db end")
-
 print("2.py done")
+logger.info("process_db end")

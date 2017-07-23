@@ -1,5 +1,7 @@
-import logging 
-logger = logging.getLogger('all.process_db')
+import logging
+import logging.config
+logging.config.fileConfig('/a-fund/config/log.conf')
+logger = logging.getLogger('process_db')
 logger.info("process_db start")
 
 import pymongo, time
