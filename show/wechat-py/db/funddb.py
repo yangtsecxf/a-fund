@@ -25,6 +25,7 @@ def _mix(argsintegers):
     return chose_fund
 
 def _default():
+    chose_fund = ""
     rows = chosen_fund_set.find()#chosen_fund_set.find({'date':'2017-07-12'})
     if rows.count() <= 0:
         return ""
@@ -34,7 +35,14 @@ def _default():
         index_last = rows.count() - 1
 
     #default mix6
-    chose_fund = rows[index_last]['date'] + ":" + rows[index_last]['mix6']
+    for i in range(6, 1, -1):
+        mixtype = "mix" + str(i)
+        chose_fund = rows[index_last][mixtype]
+        if chose_fund == "set()":
+            continue
+        else:
+            chose_fund = rows[index_last]['date'] + "    " + mixtype + ":" + rows[index_last][mixtype]
+            break    
     
     return chose_fund
 
