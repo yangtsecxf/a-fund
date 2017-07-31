@@ -1,7 +1,7 @@
 #db connect
 import argparse
 import pymongo
-conn = pymongo.MongoClient('mongodb://127.0.0.1:27017', 28017)#MongoClient()
+conn = pymongo.MongoClient('mongodb://209.141.58.160:27017', 28017)#MongoClient()
 db = conn.fund  #connect db fund, creat one if have none
 chosen_fund_set = db['chosen_fund_set']
 
@@ -24,6 +24,10 @@ def _mix(argsintegers):
     
     return chose_fund
 
+def _date(arg_date_strlist):
+    chose_fund = ""
+    return chose_fund
+
 def _default():
     chose_fund = ""
     rows = chosen_fund_set.find()#chosen_fund_set.find({'date':'2017-07-12'})
@@ -34,7 +38,7 @@ def _default():
     if rows.count() > 0:
         index_last = rows.count() - 1
 
-    #default mix6
+    # try to get the data
     for i in range(6, 1, -1):
         mixtype = "mix" + str(i)
         chose_fund = rows[index_last][mixtype]
@@ -49,23 +53,21 @@ def _default():
 
 #outside function
 def get_chosen_fund(argstring):
-    try: #mix fund
-        #argparse
-        parser = argparse.ArgumentParser(description='Process some integers.')
-        parser.add_argument('integers', metavar='N', type=int, nargs='+',
-                    help='an integer for the mix type')
-        parser.add_argument('--mix', dest='mix_dest', action='store_const',
-                    const=_mix, default=_default,
-                    help='choose the mix type by integers (default: find the mix6)')
-        args = parser.parse_args(argstring.split())
-        chose_fund = args.mix_dest(args.integers)
-        return chose_fund
+    try:
+        if "jj" == argstring:
+            return _default()
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument("-d", "--date", type=str, nargs='*', help='')
+        parser.add_argument("-m", "--mix", type=int, nargs='*', help='')
+        args = parser.parse_args(argstring.split())   
+
+        if args.mix != None:
+            chose_fund = _mix(args.mix)
+            return chose_fund
+        if args.date != None:
+            chose_fund = _date(args.date)
+            return chose_fund
     except:
-        try: #jj
-            if argstring == "jj":
-                return _default()
-            else:
-                raise ValueError
-        except:
-            return "wrong para:none was found"
+        return "wrong para:none was found"
     
