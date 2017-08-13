@@ -149,6 +149,7 @@ db = conn.fund
 date = time.strftime('%Y-%m-%d',time.localtime(time.time()))
 print(date)
 chosen_fund_set = db.chosen_fund_set #get the chosen set
+chosen_fund_set.createIndex({"expireAt": 1},{expireAfterSeconds:0})
 
 row = {"date":date, 
         "mix6":str(mix_6c),
