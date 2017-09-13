@@ -120,7 +120,7 @@ class Handle_Url(Thread):
         print(date)
         #fund_set = db.fund_set
         fund_set = db[date]
-        fund_set.createIndex({"expireAt": 1},{expireAfterSeconds:0})
+        #fund_set.createIndex({"expireAt": 1},{expireAfterSeconds:0})
 
         while True:
             if self.queue.empty():
